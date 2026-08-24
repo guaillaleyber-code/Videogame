@@ -181,18 +181,14 @@
 
 <body>
 
-  <!-- ========================= -->
   <!-- MÚSICA -->
-  <!-- ========================= -->
 
   <audio id="musica" loop preload="auto">
     <source src="feels.mp3" type="audio/mpeg">
   </audio>
 
 
-  <!-- ========================= -->
   <!-- PANTALLA 0 -->
-  <!-- ========================= -->
 
   <section id="pantalla0" class="pantalla activa">
     <div class="tarjeta">
@@ -210,7 +206,20 @@
         sí, probablemente tú tienes algo que ver. 😭
       </p>
 
-      <button onclick="iniciarPagina()">
+      <!-- BOTÓN CORREGIDO -->
+
+      <button onclick="
+        document.getElementById('pantalla0').classList.remove('activa');
+        document.getElementById('pantalla1').classList.add('activa');
+
+        const musica = document.getElementById('musica');
+
+        musica.volume = 0.7;
+
+        musica.play().catch(function(error) {
+          console.log('La música no pudo comenzar:', error);
+        });
+      ">
         ¿Qué problema? 👀
       </button>
 
@@ -218,9 +227,7 @@
   </section>
 
 
-  <!-- ========================= -->
   <!-- PANTALLA 1 -->
-  <!-- ========================= -->
 
   <section id="pantalla1" class="pantalla">
     <div class="tarjeta">
@@ -251,9 +258,7 @@
   </section>
 
 
-  <!-- ========================= -->
   <!-- PANTALLA 2 -->
-  <!-- ========================= -->
 
   <section id="pantalla2" class="pantalla">
     <div class="tarjeta">
@@ -292,9 +297,7 @@
   </section>
 
 
-  <!-- ========================= -->
-  <!-- PANTALLA 3 - CORAZONES -->
-  <!-- ========================= -->
+  <!-- PANTALLA 3 -->
 
   <section id="pantalla3" class="pantalla">
     <div class="tarjeta">
@@ -323,9 +326,7 @@
   </section>
 
 
-  <!-- ========================= -->
   <!-- PANTALLA 4 -->
-  <!-- ========================= -->
 
   <section id="pantalla4" class="pantalla">
     <div class="tarjeta">
@@ -351,9 +352,7 @@
   </section>
 
 
-  <!-- ========================= -->
   <!-- CANELITA 1 -->
-  <!-- ========================= -->
 
   <section id="pantalla5" class="pantalla">
     <div class="tarjeta">
@@ -388,9 +387,7 @@
   </section>
 
 
-  <!-- ========================= -->
   <!-- CANELITA 2 -->
-  <!-- ========================= -->
 
   <section id="pantalla6" class="pantalla">
     <div class="tarjeta">
@@ -425,9 +422,7 @@
   </section>
 
 
-  <!-- ========================= -->
   <!-- CANELITA 3 -->
-  <!-- ========================= -->
 
   <section id="pantalla7" class="pantalla">
     <div class="tarjeta">
@@ -463,9 +458,7 @@
   </section>
 
 
-  <!-- ========================= -->
   <!-- CANELITA 4 -->
-  <!-- ========================= -->
 
   <section id="pantalla8" class="pantalla">
     <div class="tarjeta">
@@ -504,9 +497,7 @@
   </section>
 
 
-  <!-- ========================= -->
   <!-- PREGUNTA FINAL -->
-  <!-- ========================= -->
 
   <section id="pantalla9" class="pantalla">
     <div class="tarjeta">
@@ -556,9 +547,7 @@
   </section>
 
 
-  <!-- ========================= -->
   <!-- MENSAJE EMOTIVO -->
-  <!-- ========================= -->
 
   <section id="pantalla10" class="pantalla">
     <div class="tarjeta">
@@ -603,9 +592,7 @@
   </section>
 
 
-  <!-- ========================= -->
   <!-- PISTA 1 -->
-  <!-- ========================= -->
 
   <section id="pantalla11" class="pantalla">
     <div class="tarjeta">
@@ -641,9 +628,7 @@
   </section>
 
 
-  <!-- ========================= -->
   <!-- PISTA 2 -->
-  <!-- ========================= -->
 
   <section id="pantalla12" class="pantalla">
     <div class="tarjeta">
@@ -678,9 +663,7 @@
   </section>
 
 
-  <!-- ========================= -->
   <!-- PISTA 3 -->
-  <!-- ========================= -->
 
   <section id="pantalla13" class="pantalla">
     <div class="tarjeta">
@@ -715,9 +698,7 @@
   </section>
 
 
-  <!-- ========================= -->
   <!-- CONTRASEÑA -->
-  <!-- ========================= -->
 
   <section id="pantalla14" class="pantalla">
 
@@ -753,9 +734,7 @@
   </section>
 
 
-  <!-- ========================= -->
   <!-- DESBLOQUEADO -->
-  <!-- ========================= -->
 
   <section id="pantalla15" class="pantalla">
 
@@ -786,9 +765,7 @@
   </section>
 
 
-  <!-- ========================= -->
   <!-- SORPRESA -->
-  <!-- ========================= -->
 
   <section id="pantalla16" class="pantalla">
 
@@ -827,9 +804,7 @@
   </section>
 
 
-  <!-- ========================= -->
   <!-- FINAL -->
-  <!-- ========================= -->
 
   <section id="pantalla17" class="pantalla">
 
@@ -867,57 +842,13 @@
   </section>
 
 
-  <!-- ========================= -->
   <!-- JAVASCRIPT -->
-  <!-- ========================= -->
 
   <script>
 
     let pantallaActual = 0;
     let corazonesEncontrados = 0;
 
-
-    // =========================
-    // INICIAR PÁGINA
-    // =========================
-
-    function iniciarPagina() {
-
-      // Cambiar de pantalla PRIMERO.
-      // La música no puede bloquear el botón.
-      irA(1);
-
-      // Intentar iniciar la música.
-      const musica =
-        document.getElementById("musica");
-
-      if (musica) {
-
-        musica.volume = 0.7;
-
-        const promesa = musica.play();
-
-        if (promesa !== undefined) {
-
-          promesa.catch(function(error) {
-
-            console.log(
-              "No se pudo iniciar la música:",
-              error
-            );
-
-          });
-
-        }
-
-      }
-
-    }
-
-
-    // =========================
-    // CAMBIAR PANTALLA
-    // =========================
 
     function irA(numero) {
 
@@ -931,49 +862,29 @@
           "pantalla" + numero
         );
 
-
       if (!siguiente) {
-        console.log(
-          "No existe pantalla:",
-          numero
-        );
-
         return;
       }
-
 
       if (actual) {
         actual.classList.remove("activa");
       }
-
 
       siguiente.classList.add("activa");
 
       pantallaActual = numero;
 
       window.scrollTo(0, 0);
-
     }
 
-
-    // =========================
-    // RESPUESTAS PRIMERA PREGUNTA
-    // =========================
 
     function respuestaIncorrecta(texto, mensajeID) {
 
       const mensaje =
         document.getElementById(mensajeID);
 
-      if (!mensaje) {
-        return;
-      }
-
       mensaje.textContent = texto;
-
-      mensaje.className =
-        "mensaje incorrecto";
-
+      mensaje.className = "mensaje incorrecto";
     }
 
 
@@ -982,49 +893,31 @@
       const mensaje =
         document.getElementById(mensajeID);
 
-      if (!mensaje) {
-        return;
-      }
-
-      mensaje.textContent =
-        "Correcto 😌";
-
-      mensaje.className =
-        "mensaje correcto";
-
+      mensaje.textContent = "Correcto 😌";
+      mensaje.className = "mensaje correcto";
 
       setTimeout(function() {
-
         irA(numero);
-
       }, 600);
-
     }
 
 
-    // =========================
     // CORAZONES
-    // =========================
+    // El botón puede pulsarse todas las veces que quieras.
+    // Cada vez reinicia el contador y crea 3 corazones nuevos.
 
     function crearCorazones() {
 
-      // Reiniciar contador.
       corazonesEncontrados = 0;
 
       document.getElementById("contador")
         .textContent = "0 / 3";
 
-
-      // Eliminar corazones anteriores.
       document.querySelectorAll(".corazon")
         .forEach(function(corazon) {
-
           corazon.remove();
-
         });
 
-
-      // Crear 3 corazones.
       for (let i = 0; i < 3; i++) {
 
         setTimeout(function() {
@@ -1032,79 +925,51 @@
           const corazon =
             document.createElement("div");
 
-
-          corazon.className =
-            "corazon";
-
-
-          corazon.textContent =
-            "❤️";
-
+          corazon.className = "corazon";
+          corazon.textContent = "❤️";
 
           corazon.style.left =
             (8 + Math.random() * 84) + "vw";
 
-
-          corazon.style.bottom =
-            "-30px";
-
+          corazon.style.bottom = "-30px";
 
           corazon.onclick = function() {
 
-            // Evitar doble clic.
             if (
               corazon.dataset.encontrado === "true"
             ) {
               return;
             }
 
-
-            corazon.dataset.encontrado =
-              "true";
-
+            corazon.dataset.encontrado = "true";
 
             corazon.remove();
 
-
             corazonesEncontrados++;
-
 
             document.getElementById("contador")
               .textContent =
               corazonesEncontrados + " / 3";
 
-
-            // Encontró los tres.
-            if (
-              corazonesEncontrados === 3
-            ) {
+            if (corazonesEncontrados === 3) {
 
               setTimeout(function() {
-
                 irA(4);
-
               }, 500);
 
             }
 
           };
 
-
-          document.body.appendChild(
-            corazon
-          );
-
+          document.body.appendChild(corazon);
 
         }, i * 650);
 
       }
-
     }
 
 
-    // =========================
     // CANELITA
-    // =========================
 
     function respuestaCanelita(
       correcta,
@@ -1112,10 +977,7 @@
     ) {
 
       const mensaje =
-        document.getElementById(
-          mensajeID
-        );
-
+        document.getElementById(mensajeID);
 
       if (correcta) {
 
@@ -1125,9 +987,149 @@
         mensaje.className =
           "mensaje correcto";
 
+        setTimeout(function() {
+          irA(pantallaActual + 1);
+        }, 700);
+
+      } else {
+
+        mensaje.textContent =
+          "❌ Nooo 😭 Intenta otra vez.";
+
+        mensaje.className =
+          "mensaje incorrecto";
+      }
+    }
+
+
+    // DULZURA
+
+    function comprobarDulzura() {
+
+      const entrada =
+        document.getElementById("dulzura");
+
+      const respuesta =
+        entrada.value
+        .trim()
+        .toLowerCase();
+
+      const mensaje =
+        document.getElementById("mensaje8");
+
+      if (respuesta === "dulzura") {
+
+        mensaje.textContent =
+          "🥹 Correcto… sabía que la recordarías.";
+
+        mensaje.className =
+          "mensaje correcto";
 
         setTimeout(function() {
+          irA(9);
+        }, 900);
 
-          irA(pantallaActual + 1);
+      } else {
 
-        }, 7
+        mensaje.textContent =
+          "❌ Mmm… piensa en ese apodo. 👀";
+
+        mensaje.className =
+          "mensaje incorrecto";
+      }
+    }
+
+
+    // FINAL
+
+    function finalIncorrecto() {
+
+      const mensaje =
+        document.getElementById("mensaje9");
+
+      mensaje.textContent =
+        "💙 Es bonito… pero creo que hay una respuesta aún más especial.";
+
+      mensaje.className =
+        "mensaje incorrecto";
+    }
+
+
+    function finalCorrecto() {
+
+      const mensaje =
+        document.getElementById("mensaje9");
+
+      mensaje.textContent =
+        "🥹💙 Esa era…";
+
+      mensaje.className =
+        "mensaje correcto";
+
+      setTimeout(function() {
+        irA(10);
+      }, 900);
+    }
+
+
+    // CONTRASEÑA
+
+    function desbloquear() {
+
+      const entrada =
+        document.getElementById("contraseña");
+
+      const contraseña =
+        entrada.value
+        .trim()
+        .toUpperCase()
+        .replace(/\s/g, "");
+
+      const mensaje =
+        document.getElementById("mensajeCandado");
+
+      if (contraseña === "COQUETA") {
+
+        mensaje.textContent =
+          "🔓 CONTRASEÑA CORRECTA";
+
+        mensaje.className =
+          "mensaje correcto";
+
+        setTimeout(function() {
+          irA(15);
+        }, 700);
+
+      } else {
+
+        mensaje.textContent =
+          "❌ Esa no es… junta las pistas otra vez 😭";
+
+        mensaje.className =
+          "mensaje incorrecto";
+
+        const candado =
+          document.getElementById("candado");
+
+        candado.classList.remove("sacudir");
+
+        void candado.offsetWidth;
+
+        candado.classList.add("sacudir");
+      }
+    }
+
+
+    // FINAL + CONFETI
+
+    function mostrarFinal() {
+
+      irA(17);
+
+      crearConfeti();
+    }
+
+
+    function crearConfeti() {
+
+      for (let i 
