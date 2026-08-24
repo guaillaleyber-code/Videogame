@@ -149,6 +149,24 @@
       animation: sacudir .35s;
     }
 
+    /* BOTÓN DE MÚSICA */
+
+    .boton-musica {
+      position: fixed;
+      right: 15px;
+      bottom: 15px;
+      z-index: 100;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      padding: 0;
+      margin: 0;
+      background: rgba(37, 99, 235, 0.9);
+      border: 2px solid #72a9ff;
+      font-size: 1.4rem;
+      box-shadow: 0 5px 20px rgba(0,0,0,.4);
+    }
+
     @keyframes subir {
       to {
         transform: translateY(-110vh) rotate(360deg);
@@ -187,6 +205,16 @@
     <source src="feels.mp3" type="audio/mpeg">
   </audio>
 
+  <!-- BOTÓN DE MÚSICA -->
+
+  <button
+    id="botonMusica"
+    class="boton-musica"
+    onclick="alternarMusica()"
+    title="Pausar o reproducir música">
+    🎵
+  </button>
+
 
   <!-- PANTALLA 0 -->
 
@@ -206,20 +234,7 @@
         sí, probablemente tú tienes algo que ver. 😭
       </p>
 
-      <!-- BOTÓN CORREGIDO -->
-
-      <button onclick="
-        document.getElementById('pantalla0').classList.remove('activa');
-        document.getElementById('pantalla1').classList.add('activa');
-
-        const musica = document.getElementById('musica');
-
-        musica.volume = 0.7;
-
-        musica.play().catch(function(error) {
-          console.log('La música no pudo comenzar:', error);
-        });
-      ">
+      <button onclick="comenzarPagina()">
         ¿Qué problema? 👀
       </button>
 
@@ -833,9 +848,10 @@
         si vuelves a abrir la página. 👀
       </p>
 
-      <button onclick="activarMusica()">
-        🎵 Música
-      </button>
+      <p>
+        🎵 La música puede pausarse
+        o reanudarse desde el botón de la esquina.
+      </p>
 
     </div>
 
@@ -849,6 +865,8 @@
     let pantallaActual = 0;
     let corazonesEncontrados = 0;
 
+
+    /* CAMBIAR DE PANTALLA */
 
     function irA(numero) {
 
@@ -878,23 +896,96 @@
     }
 
 
-    function respuestaIncorrecta(texto, mensajeID) {
+    /* PRIMER BOTÓN + MÚSICA */
+
+    function comenzarPagina() {
+
+      irA(1);
+
+      const musica =
+        document.getElementById("musica");
+
+      musica.volume = 0.7;
+
+      musica.play().then(function() {
+
+        document.getElementById("botonMusica")
+          .textContent = "🔊";
+
+      }).catch(function(error) {
+
+        console.log(
+          "La música no pudo comenzar:",
+          error
+        );
+
+      });
+    }
+
+
+    /* MÚSICA */
+
+    function alternarMusica() {
+
+      const musica =
+        document.getElementById("musica");
+
+      const boton =
+        document.getElementById("botonMusica");
+
+
+      if (musica.paused) {
+
+        musica.play().then(function() {
+
+          boton.textContent = "🔊";
+
+        }).catch(function() {
+
+          console.log(
+            "No se pudo reproducir la música."
+          );
+
+        });
+
+      } else {
+
+        musica.pause();
+
+        boton.textContent = "🔇";
+      }
+    }
+
+
+    /* RESPUESTAS */
+
+    function respuestaIncorrecta(
+      texto,
+      mensajeID
+    ) {
 
       const mensaje =
         document.getElementById(mensajeID);
 
       mensaje.textContent = texto;
-      mensaje.className = "mensaje incorrecto";
+      mensaje.className =
+        "mensaje incorrecto";
     }
 
 
-    function respuestaCorrecta(numero, mensajeID) {
+    function respuestaCorrecta(
+      numero,
+      mensajeID
+    ) {
 
       const mensaje =
         document.getElementById(mensajeID);
 
-      mensaje.textContent = "Correcto 😌";
-      mensaje.className = "mensaje correcto";
+      mensaje.textContent =
+        "Correcto 😌";
+
+      mensaje.className =
+        "mensaje correcto";
 
       setTimeout(function() {
         irA(numero);
@@ -902,21 +993,27 @@
     }
 
 
-    // CORAZONES
-    // El botón puede pulsarse todas las veces que quieras.
-    // Cada vez reinicia el contador y crea 3 corazones nuevos.
+    /* CORAZONES */
 
     function crearCorazones() {
+
+      /* Reiniciar contador */
 
       corazonesEncontrados = 0;
 
       document.getElementById("contador")
         .textContent = "0 / 3";
 
+
+      /* Borrar corazones anteriores */
+
       document.querySelectorAll(".corazon")
         .forEach(function(corazon) {
           corazon.remove();
         });
+
+
+      /* Crear 3 nuevos */
 
       for (let i = 0; i < 3; i++) {
 
@@ -925,43 +1022,60 @@
           const corazon =
             document.createElement("div");
 
-          corazon.className = "corazon";
-          corazon.textContent = "❤️";
+          corazon.className =
+            "corazon";
+
+          corazon.textContent =
+            "❤️";
 
           corazon.style.left =
             (8 + Math.random() * 84) + "vw";
 
-          corazon.style.bottom = "-30px";
+          corazon.style.bottom =
+            "-30px";
 
-          corazon.onclick = function() {
 
-            if (
-              corazon.dataset.encontrado === "true"
-            ) {
-              return;
-            }
+          corazon.onclick =
+            function() {
 
-            corazon.dataset.encontrado = "true";
+              if (
+                corazon.dataset.encontrado ===
+                "true"
+              ) {
+                return;
+              }
 
-            corazon.remove();
+              corazon.dataset.encontrado =
+                "true";
 
-            corazonesEncontrados++;
+              corazon.remove();
 
-            document.getElementById("contador")
-              .textContent =
-              corazonesEncontrados + " / 3";
+              corazonesEncontrados++;
 
-            if (corazonesEncontrados === 3) {
 
-              setTimeout(function() {
-                irA(4);
-              }, 500);
+              document.getElementById(
+                "contador"
+              ).textContent =
+                corazonesEncontrados +
+                " / 3";
 
-            }
 
-          };
+              if (
+                corazonesEncontrados === 3
+              ) {
 
-          document.body.appendChild(corazon);
+                setTimeout(function() {
+                  irA(4);
+                }, 500);
+
+              }
+
+            };
+
+
+          document.body.appendChild(
+            corazon
+          );
 
         }, i * 650);
 
@@ -969,7 +1083,7 @@
     }
 
 
-    // CANELITA
+    /* CANELITA */
 
     function respuestaCanelita(
       correcta,
@@ -979,6 +1093,7 @@
       const mensaje =
         document.getElementById(mensajeID);
 
+
       if (correcta) {
 
         mensaje.textContent =
@@ -987,9 +1102,15 @@
         mensaje.className =
           "mensaje correcto";
 
+
         setTimeout(function() {
-          irA(pantallaActual + 1);
+
+          irA(
+            pantallaActual + 1
+          );
+
         }, 700);
+
 
       } else {
 
@@ -998,24 +1119,31 @@
 
         mensaje.className =
           "mensaje incorrecto";
+
       }
     }
 
 
-    // DULZURA
+    /* DULZURA */
 
     function comprobarDulzura() {
 
       const entrada =
-        document.getElementById("dulzura");
+        document.getElementById(
+          "dulzura"
+        );
 
       const respuesta =
         entrada.value
-        .trim()
-        .toLowerCase();
+          .trim()
+          .toLowerCase();
+
 
       const mensaje =
-        document.getElementById("mensaje8");
+        document.getElementById(
+          "mensaje8"
+        );
+
 
       if (respuesta === "dulzura") {
 
@@ -1025,9 +1153,13 @@
         mensaje.className =
           "mensaje correcto";
 
+
         setTimeout(function() {
+
           irA(9);
+
         }, 900);
+
 
       } else {
 
@@ -1036,100 +1168,13 @@
 
         mensaje.className =
           "mensaje incorrecto";
+
       }
     }
 
 
-    // FINAL
+    /* PREGUNTA FINAL */
 
     function finalIncorrecto() {
 
-      const mensaje =
-        document.getElementById("mensaje9");
-
-      mensaje.textContent =
-        "💙 Es bonito… pero creo que hay una respuesta aún más especial.";
-
-      mensaje.className =
-        "mensaje incorrecto";
-    }
-
-
-    function finalCorrecto() {
-
-      const mensaje =
-        document.getElementById("mensaje9");
-
-      mensaje.textContent =
-        "🥹💙 Esa era…";
-
-      mensaje.className =
-        "mensaje correcto";
-
-      setTimeout(function() {
-        irA(10);
-      }, 900);
-    }
-
-
-    // CONTRASEÑA
-
-    function desbloquear() {
-
-      const entrada =
-        document.getElementById("contraseña");
-
-      const contraseña =
-        entrada.value
-        .trim()
-        .toUpperCase()
-        .replace(/\s/g, "");
-
-      const mensaje =
-        document.getElementById("mensajeCandado");
-
-      if (contraseña === "COQUETA") {
-
-        mensaje.textContent =
-          "🔓 CONTRASEÑA CORRECTA";
-
-        mensaje.className =
-          "mensaje correcto";
-
-        setTimeout(function() {
-          irA(15);
-        }, 700);
-
-      } else {
-
-        mensaje.textContent =
-          "❌ Esa no es… junta las pistas otra vez 😭";
-
-        mensaje.className =
-          "mensaje incorrecto";
-
-        const candado =
-          document.getElementById("candado");
-
-        candado.classList.remove("sacudir");
-
-        void candado.offsetWidth;
-
-        candado.classList.add("sacudir");
-      }
-    }
-
-
-    // FINAL + CONFETI
-
-    function mostrarFinal() {
-
-      irA(17);
-
-      crearConfeti();
-    }
-
-
-    function crearConfeti() {
-
-      for (let i 
+      const mensaje 
