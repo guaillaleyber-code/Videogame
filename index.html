@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Para Jary 💙</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top, #12345d, #050a12 65%);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .pantalla {
+      display: none;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+    }
+
+    .pantalla.activa {
+      display: flex;
+    }
+
+    .tarjeta {
+      width: min(620px, 100%);
+      text-align: center;
+      background: rgba(9, 20, 35, 0.94);
+      border: 1px solid #294b72;
+      border-radius: 28px;
+      padding: 30px 22px;
+      box-shadow: 0 20px 70px rgba(0,0,0,.6);
+    }
+
+    .tag {
+      color: #72a9ff;
+      font-size: .75rem;
+      font-weight: bold;
+      letter-spacing: .15em;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 10vw, 4.5rem);
+      margin: 15px 0;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 7vw, 2.5rem);
+    }
+
+    p {
+      color: #dbe6f5;
+      line-height: 1.6;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 14px 22px;
+      margin: 7px;
+      background: #2563eb;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    .opciones {
+      display: grid;
+      gap: 10px;
+    }
+
+    .opciones button {
+      margin: 0;
+    }
+
+    .mensaje {
+      min-height: 30px;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .pista {
+      margin: 14px 0;
+      padding: 18px;
+      border: 1px dashed #41678f;
+      border-radius: 18px;
+      background: #0c1a2b;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      border-radius: 14px;
+      border: 1px solid #3c5d7d;
+      background: #07111f;
+      color: white;
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: .15em;
+      font-size: 1rem;
+    }
+
+    .corazon {
+      position: fixed;
+      z-index: 20;
+      font-size: 32px;
+      cursor: pointer;
+      animation: subir 4s linear forwards;
+      user-select: none;
+    }
+
+    .confeti {
+      position: fixed;
+      z-index: 50;
+      width: 9px;
+      height: 14px;
+      animation: caer 2.6s linear forwards;
+    }
+
+    .secreto {
+      font-size: 5rem;
+    }
+
+    @keyframes subir {
+      to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes caer {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    .sacudir {
+      animation: sacudir .35s;
+    }
+
+    @keyframes sacudir {
+      25% { transform: translateX(-8px); }
+      50% { transform: translateX(8px); }
+      75% { transform: translateX(-5px); }
+    }
+
+    .correcto {
+      color: #7dd3fc;
+    }
+
+    .incorrecto {
+      color: #ff8b8b;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- MÚSICA -->
+
+  <audio id="musica" loop>
+    <source src="feels.mp3" type="audio/mpeg">
+  </audio>
+
+
+  <!-- PANTALLA 1 -->
+
+  <section id="pantalla0" class="pantalla activa">
+    <div class="tarjeta">
+
+      <div class="tag">
+        ARCHIVO 01 • CONFIDENCIAL
+      </div>
+
+      <h1>
+        Tenemos un pequeño problema… 👀
+      </h1>
+
+      <p>
+        Y antes de que preguntes:
+        sí, probablemente tú tienes algo que ver. 😭
+      </p>
+
+      <button onclick="comenzar()">
+        ¿Qué problema? 👀
+      </button>
+
+    </div>
+  </section>
+
+
+  <!-- PANTALLA 2 -->
+
+  <section id="pantalla1" class="pantalla">
+    <div class="tarjeta">
+
+      <div class="tag">
+        DIAGNÓSTICO
+      </div>
+
+      <h2>
+        El problema es bastante serio.
+      </h2>
+
+      <p>
+        Hay una persona llamada <b>Jary</b> que aparentemente
+        es demasiado dulce, le gusta la comida, dibujar y leer…
+      </p>
+
+      <p>
+        Y además se hace llamar “lesbiana” cuando pasa
+        demasiado tiempo con su prima. 💀
+      </p>
+
+      <button onclick="irA(2)">
+        Continuar investigación
+      </button>
+
+    </div>
+  </section>
+
+
+  <!-- PANTALLA 3 -->
+
+  <section id="pantalla2" class="pantalla">
+    <div class="tarjeta">
+
+      <div class="tag">
+        PRUEBA #1
+      </div>
+
+      <h2>
+        Pregunta importantísima 😌
+      </h2>
+
+      <p>
+        ¿Cuál es una de las cosas que más le gusta a Jary?
+      </p>
+
+      <div class="opciones">
+
+        <button onclick="respuestaIncorrecta('Nope 😭')">
+          Dormir 19 horas
+        </button>
+
+        <button onclick="respuestaCorrecta(3, 'mensaje2')">
+          La comida 🍜
+        </button>
+
+        <button onclick="respuestaIncorrecta('Puede ser… pero esa no era la pista 👀')">
+          Robar mi identidad
+        </button>
+
+      </div>
+
+      <div id="mensaje2" class="mensaje"></div>
+
+    </div>
+  </section>
+
+
+  <!-- PANTALLA 4 -->
+
+  <section id="pantalla3" class="pantalla">
+    <div class="tarjeta">
+
+      <div class="tag">
+        PRUEBA #2
+      </div>
+
+      <h2>
+        Ahora demuestra que prestas atención. ❤️
+      </h2>
+
+      <p>
+        Encuentra los <b>3 corazones</b> que aparecerán.
+      </p>
+
+      <button onclick="crearCorazones()">
+        Estoy lista 😤
+      </button>
+
+      <div id="contador">
+        0 / 3
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- PANTALLA 5 -->
+
+  <section id="pantalla4" class="pantalla">
+    <div class="tarjeta">
+
+      <div class="tag">
+        PRUEBA #3
+      </div>
+
+      <h2>
+        🍫 ¿Qué tanto conoces a tu Canelita?
+      </h2>
+
+      <p>
+        Vamos a comprobar si realmente conoces a tu Canelita. 👀
+      </p>
+
+      <button onclick="irA(5)">
+        A ver qué tanto sé 😤
+      </button>
+
+    </div>
+  </section>
+
+
+  <!-- PREGUNTA CANELITA 1 -->
+
+  <section id="pantalla5" class="pantalla">
+    <div class="tarjeta">
+
+      <div class="tag">
+        CANELITA • 01
+      </div>
+
+      <h2>
+        🎮 ¿Qué le gusta hacer a Canelita?
+      </h2>
+
+      <div class="opciones">
+
+        <button onclick="respuestaCanelita(false, 'mensaje5')">
+          Cocinar 🍳
+        </button>
+
+        <button onclick="respuestaCanelita(true, 'mensaje5')">
+          Jugar 🎮
+        </button>
+
+        <button onclick="respuestaCanelita(false, 'mensaje5')">
+          Dormir 24 horas 😴
+        </button>
+
+      </div>
+
+      <div id="mensaje5" class="mensaje"></div>
+
+    </div>
+  </section>
+
+
+  <!-- PREGUNTA CANELITA 2 -->
+
+  <section id="pantalla6" class="pantalla">
+    <div class="tarjeta">
+
+      <div class="tag">
+        CANELITA • 02
+      </div>
+
+      <h2>
+        🕹️ ¿Cuál es uno de los juegos favoritos de Canelita?
+      </h2>
+
+      <div class="opciones">
+
+        <button onclick="respuestaCanelita(false, 'mensaje6')">
+          Fortnite
+        </button>
+
+        <button onclick="respuestaCanelita(true, 'mensaje6')">
+          Roblox 🎮
+        </button>
+
+        <button onclick="respuestaCanelita(false, 'mensaje6')">
+          Minecraft
+        </button>
+
+      </div>
+
+      <div id="mensaje6" class="mensaje"></div>
+
+    </div>
+  </section>
+
+
+  <!-- PREGUNTA CANELITA 3 -->
+
+  <section id="pantalla7" class="pantalla">
+    <div class="tarjeta">
+
+      <div class="tag">
+        CANELITA • 03
+      </div>
+
+      <h2>
+        💭 ¿Qué hace Canelita cuando piensa en alguien especial?
+      </h2>
+
+      <div class="opciones">
+
+        <button onclick="respuestaCanelita(false, 'mensaje7')">
+          Piensa en comida 🍕
+        </button>
+
+        <button onclick="respuestaCanelita(true, 'mensaje7')">
+          Piensa en su amada… 💙
+        </button>
+
+        <button onclick="respuestaCanelita(false, 'mensaje7')">
+          Se queda mirando al techo 😂
+        </button>
+
+      </div>
+
+      <div id="mensaje7" class="mensaje"></div>
+
+    </div>
+  </section>
+
+
+  <!-- PREGUNTA CANELITA 4 -->
+
+  <section id="pantalla8" class="pantalla">
+    <div class="tarjeta">
+
+      <div class="tag">
+        CANELITA • 04
+      </div>
+
+      <h2>
+        ✍️ Ahora no hay opciones…
+      </h2>
+
+      <p>
+        Hay una palabra que Jary usa para llamar
+        a Canelita con mucho cariño. 💙
+      </p>
+
+      <p>
+        <b>Escríbela:</b>
+      </p>
+
+      <input
+        id="dulzura"
+        maxlength="30"
+        placeholder="Escribe aquí..."
+      >
+
+      <button onclick="comprobarDulzura()">
+        Confirmar 💙
+      </button>
+
+      <div id="mensaje8" class="mensaje"></div>
+
+    </div>
+  </section>
+
+
+  <!-- PREGUNTA FINAL -->
+
+  <section id="pantalla9" class="pantalla">
+    <div class="tarjeta">
+
+      <div class="tag">
+        CANELITA • FINAL 💙
+      </div>
+
+      <h2>
+        🥹 La pregunta final
+      </h2>
+
+      <p>
+        Si pudieras elegir un solo momento para guardar
+        de nosotros para siempre… ¿cuál elegirías?
+      </p>
+
+      <div class="opciones">
+
+        <button onclick="finalIncorrecto()">
+          😂 Todas nuestras locuras y momentos
+          en los que no paramos de reír.
+        </button>
+
+        <button onclick="finalIncorrecto()">
+          🎮 Todas las veces que jugamos juntos
+          y nos olvidamos del mundo.
+        </button>
+
+        <button onclick="finalIncorrecto()">
+          🫂 Todos esos momentos en los que
+          simplemente estuvimos juntos.
+        </button>
+
+        <button onclick="finalCorrecto()">
+          💙 Todos nuestros momentos, porque no quiero
+          guardar solo uno. Quiero recordar cada risa,
+          cada conversación, cada locura y cada momento
+          contigo.
+        </button>
+
+      </div>
+
+      <div id="mensaje9" class="mensaje"></div>
+
+    </div>
+  </section>
+
+
+  <!-- MENSAJE FINAL DEL QUIZ -->
+
+  <section id="pantalla10" class="pantalla">
+    <div class="tarjeta">
+
+      <div class="tag">
+        💙 RESPUESTA CORRECTA
+      </div>
+
+      <h1>
+        🥹💙
+      </h1>
+
+      <h2>
+        Entonces entendiste la respuesta.
+      </h2>
+
+      <p>
+        Porque para mí tampoco existe
+        <b>un solo momento</b> que quiera guardar.
+      </p>
+
+      <p>
+        <b>Quiero guardarlos todos.</b>
+      </p>
+
+      <p>
+        Y si algún día olvidamos alguna de nuestras
+        locuras, siempre podremos crear nuevos recuerdos.
+      </p>
+
+      <p>
+        <b>
+          Te quiero muchísimo, Dulzura. 🤍
+        </b>
+      </p>
+
+      <button onclick="irA(11)">
+        Todavía falta algo… 🔐
+      </button>
+
+    </div>
+  </section>
+
+
+  <!-- PISTA 1 -->
+
+  <section id="pantalla11" class="pantalla">
+    <div class="tarjeta">
+
+      <div class="tag">
+        ARCHIVO OCULTO • 01
+      </div>
+
+      <h2>
+        🔎 Primera pista
+      </h2>
+
+      <div class="pista">
+
+        🍫 <b>Algo pequeño, pero importante.</b>
+
+        <br><br>
+
+        Busca las dos letras que necesitas
+        para comenzar el código.
+
+        <br><br>
+
+        <b>CO</b>
+
+      </div>
+
+      <button onclick="irA(12)">
+        Guardar pista 🔎
+      </button>
+
+    </div>
+  </section>
+
+
+  <!-- PISTA 2 -->
+
+  <section id="pantalla12" class="pantalla">
+    <div class="tarjeta">
+
+      <div class="tag">
+        ARCHIVO OCULTO • 02
+      </div>
+
+      <h2>
+        🎨 Segunda pista
+      </h2>
+
+      <div class="pista">
+
+        Hay una palabra escondida en esta pregunta:
+
+        <br><br>
+
+        <b>
+          ¿QUE quieres hacer hoy?
+        </b>
+
+        <br><br>
+
+        <b>QUE</b>
+
+      </div>
+
+      <button onclick="irA(13)">
+        Ya casi… 👀
+      </button>
+
+    </div>
+  </section>
+
+
+  <!-- PISTA 3 -->
+
+  <section id="pantalla13" class="pantalla">
+    <div class="tarjeta">
+
+      <div class="tag">
+        ARCHIVO OCULTO • 03
+      </div>
+
+      <h2>
+        📖 Última pista
+      </h2>
+
+      <div class="pista">
+
+        Solo necesitas las últimas dos letras.
+
+        <br><br>
+
+        <b>TA</b>
+
+        <br><br>
+
+        Ahora junta las tres pistas.
+
+      </div>
+
+      <button onclick="irA(14)">
+        Creo que ya lo tengo… 🔐
+      </button>
+
+    </div>
+  </section>
+
+
+  <!-- CONTRASEÑA -->
+
+  <section id="pantalla14" class="pantalla">
+
+    <div id="candado" class="tarjeta">
+
+      <div class="tag">
+        ARCHIVO FINAL
+      </div>
+
+      <h2>
+        🔐 CONTRASEÑA REQUERIDA
+      </h2>
+
+      <p>
+        Junta todo lo que encontraste.
+      </p>
+
+      <input
+        id="contraseña"
+        maxlength="20"
+        placeholder="CONTRASEÑA"
+        autocomplete="off"
+      >
+
+      <button onclick="desbloquear()">
+        Desbloquear 🔓
+      </button>
+
+      <div id="mensajeCandado" class="mensaje"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ARCHIVO DESBLOQUEADO -->
+
+  <section id="pantalla15" class="pantalla">
+
+    <div class="tarjeta">
+
+      <div class="tag">
+        ACCESO CONCEDIDO
+      </div>
+
+      <div class="secreto">
+        🔓
+      </div>
+
+      <h2>
+        Ok… aparentemente sí eres tú. 😭
+      </h2>
+
+      <p>
+        Preparando archivo secreto…
+      </p>
+
+      <button onclick="irA(16)">
+        Abrir sorpresa 🎁
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- SORPRESA -->
+
+  <section id="pantalla16" class="pantalla">
+
+    <div class="tarjeta">
+
+      <div class="tag">
+        PARA MI DULZURA 💙
+      </div>
+
+      <h1>
+        💙
+      </h1>
+
+      <h2>
+        Si llegaste hasta aquí…
+      </h2>
+
+      <p>
+        Todo este lío, los juegos, las pistas y las bromas
+        tenían una sola misión:
+        <b>sacarte una sonrisa.</b>
+      </p>
+
+      <p>
+        <b>
+          Te quiero muchísimo, Dulzura. 🤍
+        </b>
+      </p>
+
+      <button onclick="mostrarFinal()">
+        ¿Eso era todo?
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- FINAL -->
+
+  <section id="pantalla17" class="pantalla">
+
+    <div class="tarjeta">
+
+      <div class="tag">
+        ERROR 404
+      </div>
+
+      <h1>
+        JAJAJA NO. 😭
+      </h1>
+
+      <h2>
+        Obviamente no era todo.
+      </h2>
+
+      <p>
+        Felicidades, Dulzura.
+        Completaste la misión. 💙
+      </p>
+
+      <p>
+        Ahora sí puedes salir…
+        aunque no me hago responsable
+        si vuelves a abrir la página. 👀
+      </p>
+
+      <button onclick="activarMusica()">
+        🎵 Música
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <script>
+
+    let pantallaActual = 0;
+    let corazonesEncontrados = 0;
+
+
+    // INICIO + MÚSICA
+
+    function comenzar() {
+
+      const musica =
+        document.getElementById("musica");
+
+      musica.volume = 0.7;
+
+      musica.play().catch(function() {
+        console.log("La música necesita interacción del usuario.");
+      });
+
+      irA(1);
+    }
+
+
+    // CAMBIAR DE PANTALLA
+
+    function irA(numero) {
+
+      const actual =
+        document.getElementById("pantalla" + pantallaActual);
+
+      const siguiente =
+        document.getElementById("pantalla" + numero);
+
+      if (!siguiente) {
+        return;
+      }
+
+      if (actual) {
+        actual.classList.remove("activa");
+      }
+
+      siguiente.classList.add("activa");
+
+      pantallaActual = numero;
+
+      window.scrollTo(0, 0);
+    }
+
+
+    // RESPUESTAS
+
+    function respuestaIncorrecta(texto) {
+
+      const mensaje =
+        document.getElementById("mensaje2");
+
+      mensaje.textContent = texto;
+      mensaje.className = "mensaje incorrecto";
+    }
+
+
+    function respuestaCorrecta(numero, mensajeID) {
+
+      const mensaje =
+        document.getElementById(mensajeID);
+
+      mensaje.textContent = "Correcto 😌";
+      mensaje.className = "mensaje correcto";
+
+      setTimeout(function() {
+        irA(numero);
+      }, 600);
+    }
+
+
+    // CORAZONES
+
+    function crearCorazones() {
+
+      corazonesEncontrados = 0;
+
+      document.getElementById("contador")
+        .textContent = "0 / 3";
+
+
+      document.querySelectorAll(".corazon")
+        .forEach(function(corazon) {
+          corazon.remove();
+        });
+
+
+      for (let i = 0; i < 3; i++) {
+
+        setTimeout(function() {
+
+          const corazon =
+            document.createElement("div");
+
+          corazon.className = "corazon";
+
+          corazon.textContent = "❤️";
+
+          corazon.style.left =
+            (8 + Math.random() * 84) + "vw";
+
+          corazon.style.bottom = "-30px";
+
+
+          corazon.onclick = function() {
+
+            if (
+              corazon.dataset.encontrado === "true"
+            ) {
+              return;
+            }
+
+            corazon.dataset.encontrado = "true";
+
+            corazon.remove();
+
+            corazonesEncontrados++;
+
+            document.getElementById("contador")
+              .textContent =
+              corazonesEncontrados + " / 3";
+
+
+            if (corazonesEncontrados === 3) {
+
+              setTimeout(function() {
+                irA(4);
+              }, 500);
+
+            }
+
+          };
+
+
+          document.body.appendChild(corazon);
+
+        }, i * 650);
+
+      }
+
+    }
+
+
+    // PREGUNTAS CANELITA
+
+    function respuestaCanelita(correcta, mensajeID) {
+
+      const mensaje =
+        document.getElementById(mensajeID);
+
+
+      if (correcta) {
+
+        mensaje.textContent =
+          "✅ Correcto 💙";
+
+        mensaje.className =
+          "mensaje correcto";
+
+
+        setTimeout(function() {
+
+          const siguiente =
+            pantallaActual + 1;
+
+          irA(siguiente);
+
+        }, 700);
+
+      }
+
+      else {
+
+        mensaje.textContent =
+          "❌ Nooo 😭 Intenta otra vez.";
+
+        mensaje.className =
+          "mensaje incorrecto";
+
+      }
+
+    }
+
+
+    // DULZURA
+
+    function comprobarDulzura() {
+
+      const entrada =
+        document.getElementById("dulzura");
+
+      const respuesta =
+        entrada.value
+        .trim()
+        .toLowerCase();
+
+
+      const mensaje =
+        document.getElementById("mensaje8");
+
+
+      if (respuesta === "dulzura") {
+
+        mensaje.textContent =
+          "🥹 Correcto… sabía que la recordarías.";
+
+        mensaje.className =
+          "mensaje correcto";
+
+
+        setTimeout(function() {
+          irA(9);
+        }, 900);
+
+      }
+
+      else {
+
+        mensaje.textContent =
+          "❌ Mmm… piensa en ese apodo. 👀";
+
+        mensaje.className =
+          "mensaje incorrecto";
+
+      }
+
+    }
+
+
+    // PREGUNTA FINAL
+
+    function finalIncorrecto() {
+
+      const mensaje =
+        document.getElementById("mensaje9");
+
+      mensaje.textContent =
+        "💙 Es bonito… pero creo que hay una respuesta aún más especial.";
+
+      mensaje.className =
+        "mensaje incorrecto";
+
+    }
+
+
+    function finalCorrecto() {
+
+      const mensaje =
+        document.getElementById("mensaje9");
+
+      mensaje.textContent =
+        "🥹💙 Esa era…";
+
+      mensaje.className =
+        "mensaje correcto";
+
+
+      setTimeout(function() {
+        irA(10);
+      }, 900);
+
+    }
+
+
+    // CONTRASEÑA
+
+    function desbloquear() {
+
+      const entrada =
+        document.getElementById("contraseña");
+
+      const contraseña =
+        entrada.value
+        .trim()
+        .toUpperCase()
+        .replace(/\s/g, "");
+
+
+      const mensaje =
+        document.getElementById("mensajeCandado");
+
+
+      if (contraseña === "COQUETA") {
+
+        mensaje.textContent =
+          "🔓 CONTRASEÑA CORRECTA";
+
+        mensaje.className =
+          "mensaje correcto";
+
+
+        setTimeout(function() {
+          irA(15);
+        }, 700);
+
+      }
+
+      else {
+
+        mensaje.textContent =
+          "❌ Esa no es… junta las pistas otra vez 😭";
+
+        mensaje.className =
+          "mensaje incorrecto";
+
+
+        const candado =
+          document.getElementById("candado");
+
+
+        candado.classList.remove("sacudir");
+
+        void candado.offsetWidth;
+
+        candado.classList.add("sacudir");
+
+      }
+
+    }
+
+
+    // FINAL
+
+    function mostrarFinal() {
+
+      irA(17);
+
+      crearConfeti();
+
+    }
+
+
+    // CONFETI
+
+    function crearConfeti() {
+
+      for (let i = 0; i < 90; i++) {
+
+        const pieza =
+          document.createElement("i");
+
+        pieza.className =
+          "confeti";
+
+        pieza.style.left =
+          Math.random() * 100 + "vw
