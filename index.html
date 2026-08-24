@@ -1177,4 +1177,276 @@
 
     function finalIncorrecto() {
 
-      const mensaje 
+      const mensaje =
+
+        document.getElementById("mensaje9");
+
+      mensaje.textContent =
+        "💙 Es bonito… pero creo que hay una respuesta aún más especial.";
+
+      mensaje.className =
+        "mensaje incorrecto";
+    }
+
+
+    function finalCorrecto() {
+
+      const mensaje =
+        document.getElementById("mensaje9");
+
+      mensaje.textContent =
+        "🥹💙 Esa era…";
+
+      mensaje.className =
+        "mensaje correcto";
+
+      setTimeout(function() {
+        irA(10);
+      }, 900);
+    }
+
+
+    /* CONTRASEÑA */
+
+    function desbloquear() {
+
+      const entrada =
+        document.getElementById("contraseña");
+
+      const contraseña =
+        entrada.value
+          .trim()
+          .toUpperCase()
+          .replace(/\s/g, "");
+
+      const mensaje =
+        document.getElementById("mensajeCandado");
+
+      if (contraseña === "COQUETA") {
+
+        mensaje.textContent =
+          "🔓 CONTRASEÑA CORRECTA";
+
+        mensaje.className =
+          "mensaje correcto";
+
+        setTimeout(function() {
+          irA(15);
+        }, 700);
+
+      } else {
+
+        mensaje.textContent =
+          "❌ Esa no es… junta las pistas otra vez 😭";
+
+        mensaje.className =
+          "mensaje incorrecto";
+
+        const candado =
+          document.getElementById("candado");
+
+        candado.classList.remove("sacudir");
+
+        void candado.offsetWidth;
+
+        candado.classList.add("sacudir");
+      }
+    }
+
+
+    /* FINAL + CONFETI */
+
+    function mostrarFinal() {
+
+      irA(17);
+
+      crearConfeti();
+    }
+
+
+    function crearConfeti() {
+
+      for (let i = 0; i < 90; i++) {
+
+        const pieza =
+          document.createElement("i");
+
+        pieza.className =
+          "confeti";
+
+        pieza.style.left =
+          Math.random() * 100 + "vw";
+
+        pieza.style.top =
+          "-20px";
+
+        const colores = [
+          "#2563eb",
+          "#ffffff",
+          "#60a5fa",
+          "#111827"
+        ];
+
+        pieza.style.background =
+          colores[
+            Math.floor(
+              Math.random() * colores.length
+            )
+          ];
+    function finalIncorrecto() {
+
+      const mensaje =
+        document.getElementById("mensaje9");
+
+      mensaje.textContent =
+        "💙 Es bonito… pero creo que hay una respuesta aún más especial.";
+
+      mensaje.className =
+        "mensaje incorrecto";
+    }
+
+
+    function finalCorrecto() {
+
+      const mensaje =
+        document.getElementById("mensaje9");
+
+      mensaje.textContent =
+        "🥹💙 Esa era…";
+
+      mensaje.className =
+        "mensaje correcto";
+
+      setTimeout(function() {
+        irA(10);
+      }, 900);
+    }
+
+
+    /* CONTRASEÑA */
+
+    function desbloquear() {
+
+      const entrada =
+        document.getElementById("contraseña");
+
+      const contraseña =
+        entrada.value
+          .trim()
+          .toUpperCase()
+          .replace(/\s/g, "");
+
+      const mensaje =
+        document.getElementById("mensajeCandado");
+
+      if (contraseña === "COQUETA") {
+
+        mensaje.textContent =
+          "🔓 CONTRASEÑA CORRECTA";
+
+        mensaje.className =
+          "mensaje correcto";
+
+        setTimeout(function() {
+          irA(15);
+        }, 700);
+
+      } else {
+
+        mensaje.textContent =
+          "❌ Esa no es… junta las pistas otra vez 😭";
+
+        mensaje.className =
+          "mensaje incorrecto";
+
+        const candado =
+          document.getElementById("candado");
+
+        candado.classList.remove("sacudir");
+
+        void candado.offsetWidth;
+
+        candado.classList.add("sacudir");
+      }
+    }
+
+
+    /* FINAL + CONFETI */
+
+    function mostrarFinal() {
+
+      irA(17);
+
+      crearConfeti();
+    }
+
+
+    function crearConfeti() {
+
+      for (let i = 0; i < 90; i++) {
+
+        const pieza =
+          document.createElement("i");
+
+        pieza.className =
+          "confeti";
+
+        pieza.style.left =
+          Math.random() * 100 + "vw";
+
+        pieza.style.top =
+          "-20px";
+
+        const colores = [
+          "#2563eb",
+          "#ffffff",
+          "#60a5fa",
+          "#111827"
+        ];
+
+        pieza.style.background =
+          colores[
+            Math.floor(
+              Math.random() * colores.length
+            )
+          ];
+
+        pieza.style.animationDelay =
+          Math.random() + "s";
+
+        document.body.appendChild(pieza);
+
+        setTimeout(function() {
+          pieza.remove();
+        }, 3500);
+      }
+    }
+
+
+    /* MÚSICA */
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+      const musica =
+        document.getElementById("musica");
+
+      musica.volume = 0.7;
+
+      musica.play().then(function() {
+
+        document.getElementById("botonMusica")
+          .textContent = "🔊";
+
+      }).catch(function() {
+
+        document.getElementById("botonMusica")
+          .textContent = "🎵";
+
+      });
+
+    });
+
+  </script>
+
+</body>
+</html>
